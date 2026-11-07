@@ -1,0 +1,36 @@
+{
+  "name": "@anchor/server",
+  "version": "0.3.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev -c ../../wrangler.jsonc",
+    "pretest": "node -e \"require('node:fs').mkdirSync('../web/dist',{recursive:true})\"",
+    "test": "vitest run",
+    "pretest:unit": "node -e \"require('node:fs').mkdirSync('../web/dist',{recursive:true})\"",
+    "test:unit": "vitest run test/unit",
+    "pretest:integration": "node -e \"require('node:fs').mkdirSync('../web/dist',{recursive:true})\"",
+    "test:integration": "vitest run test/integration",
+    "pretest:api": "node -e \"require('node:fs').mkdirSync('../web/dist',{recursive:true})\"",
+    "test:api": "vitest run test/api",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json"
+  },
+  "dependencies": {
+    "@anchor/shared": "workspace:*",
+    "hono": "^4.13.16",
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.6.0",
+    "@cloudflare/workers-types": "^5.20261104.1",
+    "@types/node": "^22.20.5",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.158.0"
+  },
+  "imports": {
+    "#src/*": "./src/*.ts",
+    "#test/support": "./test/support/index.ts"
+  }
+}

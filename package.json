@@ -1,0 +1,42 @@
+{
+  "name": "anchor",
+  "version": "0.3.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sotarak/anchor.git"
+  },
+  "homepage": "https://sotarak.github.io/anchor/",
+  "bugs": {
+    "url": "https://github.com/sotarak/anchor/issues"
+  },
+  "type": "module",
+  "packageManager": "pnpm@12.10.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm --filter @anchor/web build",
+    "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "deploy:worker": "pnpm build && pnpm run deploy",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test:scripts": "node --test \"scripts/*.test.mjs\""
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.158.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "ANCHOR_ROOT_KEY": {
+        "description": "The root key that wraps every project key. Generate it with `openssl rand -base64 32` and **back it up offline before you paste it**: Cloudflare never shows it again, and losing it loses every secret. [Why](https://sotarak.github.io/anchor/guides/deploy/)"
+      }
+    }
+  }
+}
